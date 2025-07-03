@@ -6,6 +6,7 @@ import {
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { router } from 'expo-router';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function SignupScreen() {
   const [email, setEmail] = useState('');
@@ -30,8 +31,16 @@ export default function SignupScreen() {
     }
   };
 
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <FontAwesome name="arrow-left" size={24} color="#007AFF" />
+        <Text style={styles.backText}>Back</Text>
+      </TouchableOpacity>
       <Text style={styles.logo}>OzPath</Text>
       <Text style={styles.title}>Create an Account</Text>
       <TextInput
@@ -67,9 +76,22 @@ export default function SignupScreen() {
 }
 
 const styles = StyleSheet.create({
-  
   container: {
     flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20, backgroundColor: '#fff',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  backText: {
+    color: '#007AFF',
+    fontSize: 16,
+    marginLeft: 8,
+    fontWeight: '500',
   },
   logo: {
     fontSize: 40, fontWeight: 'bold', fontStyle: 'italic', marginBottom: 30,
